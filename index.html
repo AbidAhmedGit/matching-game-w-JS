@@ -16,17 +16,17 @@
             position: absolute;
         }
 
-        /* set both the left and right divs to be 500px square each, with absolute 
+        /* set both the left and right divs to be 500px square each, with absolute
         positioning. */
         div{
             position: absolute;
             width: 500px;
-            height: 500px;  
+            height: 500px;
         }
 
         /* only the div with the id of rightSide */
         #rightSide{
-        /* moves the rightSide div 500 pixels to the right, 
+        /* moves the rightSide div 500 pixels to the right,
         so that it is to the right of the leftSide div */
         left: 500px;
         /* uses the border-left property to create a vertical line between the two divs. */
@@ -38,11 +38,11 @@
             font-family: Veranda, Arial, sans-serif;
             background:lavender;
         }
-        
+
         /*change heading color and position*/
         h1,p{
-            color: rgba(47, 47, 49, 0.747);    
-        }           
+            color: rgba(47, 47, 49, 0.747);
+        }
 
 
     </style>
@@ -53,20 +53,20 @@
 
 
 
-<body onload="generateFaces()"> 
+<body onload="generateFaces()">
     <h1>Matching Game</h1>
     <p>Click on the extra smiling face on the left.</p>
-    
+
     <!-- T1-Part 2: Add left and right divs -->
-    
+
     <!-- leftSide div will contain all the smiley faces shown on the left side-->
-    <div id="leftSide"></div> 
+    <div id="leftSide"></div>
     <!-- rightSide div will contain all the smiley faces shown on the right side. -->
-    <div id="rightSide"></div> 
-    
+    <div id="rightSide"></div>
+
     <!-- End of T1-Part 2: Add left and right divs -->
 
-    
+
 
 <!----------------------------TASK 2 + Task 3---------------------------------------------->
 
@@ -82,7 +82,7 @@
         const theRightSide = document.querySelector('#rightSide');
         // End of T2- Part 1: Global variables
 
-        
+
 
         // T2- Part 2: Create the generateFaces() function
         // declaration
@@ -90,17 +90,19 @@
             //  loop to iterate numberOfFaces times
             for (let index = 0; index < numberOfFaces; index++) {
 
-                // Declare a variable named face and for its value, 
+                // Declare a variable named face and for its value,
                 //create an img node using document.createElement()
-                //img node that has not yet been attached to the DOM.  
+                //img node that has not yet been attached to the DOM.
                 let face = document.createElement('img');
-                face.src = '../images/smile.png';
+                face.src = 'smile.png';
+
+
 
                 // The position of the face node is controlled by the top and \\
                 // left style properties. You will next generate random numbers \\
                 // to use as the values for these properties.\\
-                
-                // generate a random number between 1-400, and set this number 
+
+                // generate a random number between 1-400, and set this number
                 // as the value of randomTop and same for randomLeft.
                 let randomTop = Math.floor(Math.random()*400) +1;
                 let randomLeft = Math.floor(Math.random()*400) +1;
@@ -108,7 +110,7 @@
                 face.style.top = randomTop + 'px';
                 face.style.left = randomLeft + 'px';
 
-                //add the newly created face image element node as a child of theLeftSide. 
+                //add the newly created face image element node as a child of theLeftSide.
                 theLeftSide.appendChild(face);
 
             }
@@ -116,33 +118,33 @@
             //T3-Part 2: clone the entire theLeftSide div node, including all its children,
             const leftSideImages = theLeftSide.cloneNode(true);
 
-            //T3-Part 2: use removeChild() to remove the last child of leftSideImages. 
+            //T3-Part 2: use removeChild() to remove the last child of leftSideImages.
             //This will ensure that there is one less smiley face on the right side.
             leftSideImages.removeChild(leftSideImages.lastChild);
             theRightSide.appendChild(leftSideImages);
 
 
-//----------------------------Task 4----------------------------------------------\\ 
+//----------------------------Task 4----------------------------------------------\\
 // <!--  Task 4: Finish the game logic. -->
-            // T4-Part1: Add an event handler function to the extra face using addEventListener 
+            // T4-Part1: Add an event handler function to the extra face using addEventListener
             //event listener for the last child of theLeftSide with addEventListener
             //theLeftSide.addEventListener('theLeftSide.lastElementChild', nextLevel);
             theLeftSide.lastChild.addEventListener('click', nextLevel);
 
             //T4- Part 2: Add an event handler function to the body using addEventListener()
             document.body.addEventListener('click', gameOver);
-        
+
         }
         // End of T2- Part 2: Create the generateFaces() function
 
-       
+
         //T4- Part1: declare new function: nextLevel
         function nextLevel(){
             event.stopPropagation();
 
             //all children of both theLeftSide and theRightSide div nodes need to be removed.
             //add two while loops to the nextLevel function to remove all child nodes of theLeftSide and theRightSide.
-            // Be sure to place these loops before the call to generateFaces() in the nextLevel function. 
+            // Be sure to place these loops before the call to generateFaces() in the nextLevel function.
             while(theLeftSide.firstChild){
                 theLeftSide.removeChild(theLeftSide.firstChild);
             }
@@ -150,8 +152,8 @@
                 theRightSide.removeChild(theRightSide.firstChild);
             }
             numberOfFaces += 5;
-            generateFaces(); 
-            
+            generateFaces();
+
             //T4- Part 4: Delete the child nodes
 
         }
@@ -160,20 +162,20 @@
         function gameOver(){
             alert('Game Over!');
 
-            // remove the event handlers you created with addEventListener. 
-            //That means you need to use it on document.body 
+            // remove the event handlers you created with addEventListener.
+            //That means you need to use it on document.body
             //to remove the gameOver event handler function for the 'click' event
             document.body.removeEventListener('click', gameOver);
 
-            //on theLeftSide.lastChild to remove the 
+            //on theLeftSide.lastChild to remove the
             //nextLevel event handler function for the 'click' event.
             theLeftSide.lastChild.removeEventListener('click', nextLevel);
 
             // extra
             resetGame();
 
-            
-        } 
+
+        }
 
 
 
